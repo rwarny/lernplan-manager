@@ -39,6 +39,7 @@ class WeekView:
             self.frame.grid_rowconfigure(i, weight=1)
 
         # Wochentage-Labels erstellen (Zeile 0, Spalten 1-7)
+        self.wochentag_labels = []
         for col, tag in enumerate(WOCHENTAGE):
             label = tk.Label(
                 self.frame,
@@ -48,6 +49,7 @@ class WeekView:
                 font=("Arial", FONT_SIZES['normal'], 'bold')
             )
             label.grid(row=0, column=col + 1, sticky="nsew", padx=2, pady=2)
+            self.wochentag_labels.append(label)
 
         # Zeit-Label erstellen (Spalte 0, Zeilen 1-7)
         for row, zeit in enumerate(ZEITSLOTS):
@@ -104,6 +106,10 @@ class WeekView:
 
     def update_week_view(self):
         """ Aktualisiert die Anzeige aller Zeitslots mit den aktuellen Tasks """
+         # Wochentag-Labels aktualisieren
+        for col, label in enumerate(self.wochentag_labels):
+            label.config(text=self._get_wochentag_mit_datum(col))
+
         # Alle Slots durchlaufen
         for (tag, zeit), slot_frame in self.slot_frames.items():
             # Alte Widgets in Slot löschen
