@@ -10,8 +10,9 @@ class WeekManager:
         self.goals = []
         self.next_task_id = 1
         self.next_goal_id = 1
-        self.wochennummer = datetime.now().isocalendar()[1]
-        self.jahr = datetime.now().year
+        iso_kalender = datetime.now().isocalendar()
+        self.wochennummer = iso_kalender[1]
+        self.jahr = iso_kalender[0]
         self.auto_save_callback = None
 
     def add_task(self, task):
